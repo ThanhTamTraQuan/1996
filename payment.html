@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thông tin thanh toán - Thanh Tâm Trà Quán</title>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Calistoga&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <!-- Thêm thư viện html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="Payment.css" />    
+</head>
+<body>
+  <!-- Back to Home Button -->
+  <a href="index.html" class="back-to-home"> 👈Về lại trang Chủ </a>
+
+<!-- header -->
+<header class="header">
+  <div class="banner">
+    <h3 class="banner-subtitle" style="color: rgb(107, 235, 95); white-space: nowrap; font-family: 'Calistoga', cursive;">
+      Thanh Tâm Trà Quán🍵
+    </h3>
+    <h1 class="banner-title" style="font-size: 24px;">
+      Đặt Hàng
+    </h1>
+  </div>
+</header>
+
+<!-- payment section -->
+<section class="payment">
+  <div class="section-center">
+    <div id="cartContent"></div>
+
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+      <button id="exportBtn" class="main-btn" style="margin-right: 10px;" title="Xuất file thông tin các sản phẩm mà bạn đã bỏ vào giỏ hàng">
+          📄 Xuất file thông tin mua hàng
+      </button>
+      <button id="resetCartBtn" class="main-btn" title="Xóa toàn bộ sản phẩm mà bạn đã bỏ vào giỏ hàng!">
+          <i class="fas fa-redo" style="margin-right: 8px;"></i> Reset Giỏ Hàng
+      </button>
+        <!-- Messenger icon -->
+<div class="facebook">
+  <a class="btn-secondary btn-floating" target="_blank" href="https://m.me/559250427770983" rel="nofollow" data-toggle="tooltip" data-original-title="Liên hệ với chúng tôi qua Facebook">
+    <img width="45" height="45" class="dt-width-auto" alt="Messenger" src="https://file.hstatic.net/200000525917/file/messenger-fb_8fcc524fbaad4b1195a150dc5e0575d7.png">
+  </a>
+</div>
+
+<!-- Zalo icon -->
+<div class="zalo">
+  <a class="btn-secondary btn-floating" href="https://zalo.me/0908147294" rel="nofollow" data-toggle="tooltip" data-original-title="Liên hệ với chúng tôi qua Zalo">
+    <img width="45" height="45" class="dt-width-auto" alt="Liên hệ với chúng tôi qua Zalo" src="zalo.jpg">
+  </a>
+</div>
+  </div>
+
+    <h2 class="section-title" style="color: rgb(55, 245, 38);">Thông tin tài khoản</h2>
+
+    <p class="payment-text">Vui lòng chuyển khoản đến số tài khoản dưới đây:</p>
+
+    <h3 class="bank-info">Ngân hàng: <span style="color: #0000FF; font-weight: bold; font-size: 22px;">ACB</span></h3>
+
+    <div style="text-align: center;">
+      <h3 class="bank-info">
+        <span id="qr-toggle" style="color: blue; cursor: pointer;" onclick="toggleQR()">Hiển thị ảnh QR</span>
+      </h3>
+      <img id="qr-code" src="QR.jpg" alt="QR code" style="display: none; margin: 0 auto;
+       width: 100px; height: 100px; transition: transform 0.3s ease;" onclick="zoomQR()" />
+      <h3 class="bank-info">Số tài khoản: 1708746868</h3>
+      <h3 class="bank-info" style="margin-bottom: 20px;">Chủ tài khoản: Lê Phan Bảo Châu</h3>
+    </div>
+
+    <p class="payment-text" style="color: rgb(22, 22, 22); font-size: 18px; 
+    border: 2px solid rgb(209, 56, 56); padding: 15px; text-align: center; 
+    background-color: rgb(255, 245, 238); 
+    box-shadow: 0 0 0 5px white, 0 0 0 8px rgb(209, 56, 56);
+    margin-bottom: 20px;">
+      <span style="color: rgb(209, 56, 56); font-weight: bold;">Lưu ý: </span> 
+      Sau khi chuyển khoản, vui lòng giữ lại ảnh thông tin mua hàng mà bạn xuất file hồi nãy. <br>
+      <span style="display: block; text-align: center; font-weight: bold; color: rgb(33, 150, 243);">
+        Và liên hệ người bán qua messenger (hoặc zalo), gửi ảnh thông tin mua hàng và ảnh chụp bill chuyển khoản
+      </span>
+    </p>
+
+    <!--  <div class="form-link" style="text-align: center;">
+      <a href="https://forms.gle/ZfFLoYy2XhE6o7Mc9" class="main-btn" target="_blank">Chuyển tới Google Biểu mẫu để điền thông tin</a>
+    </div>  -->
+  </div>
+</section>
+
+<!-- Phần tử để chứa thông tin đơn hàng -->
+<div id="orderInfoContainer" style="display: none; padding: 20px; background-color: white; color: black; max-width: 600px; margin: auto; font-family: Arial, sans-serif;"></div>
+
+<!-- Phần khung nhập mã giảm giá -->
+<div id="discountSection">
+  <span class="closeDiscount" id="closeDiscount">✖</span>
+  <p>Bạn có mã giảm giá? Nhập vào đây:</p>
+  <input type="text" id="discountCode" placeholder="Nhập mã giảm giá">
+  <button id="applyDiscountBtn">Áp dụng</button>
+  <p id="discountMessage" style="color: red;"></p>
+</div>
+
+<!-- footer -->
+<footer class="footer">
+  <div class="section-center">
+    <p class="footer-text">&copy; 2024 Thanh Tâm Trà Quán 🍵</p>
+  </div>
+</footer>
+<script src="file.js"></script>    
+</body>
+</html>
